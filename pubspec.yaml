@@ -34,5 +34,5 @@ flutter:
   assets:
     - assets/flags/
     - assets/payment_images/
-    - assets/images/
-    - assets/icons/
+    # - assets/images/
+    # - assets/icons/
