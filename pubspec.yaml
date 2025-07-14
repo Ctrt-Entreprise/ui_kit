@@ -21,6 +21,9 @@ dependencies:
   flutter:
     sdk: flutter
   core:
+    git:
+      url: https://github.com/Ctrt-Entreprise/core.git
+      ref: main
   intl: ^0.19.0
   percent_indicator: ^4.2.4
 
