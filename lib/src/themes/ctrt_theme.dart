@@ -30,7 +30,7 @@ class CtrtThemes {
     color: color ?? CtrtColors.textSecondary,
     fontSize: fontSize ?? 13,
     height: 16 / (fontSize??13),
-    fontWeight: fontWeight ?? FontWeight.w600,
+    fontWeight: fontWeight ?? FontWeight.w500,
   );
 
   static fieldSelectedBorder ({Color? color, double? width, double? radius, bool whithBoder = true}) => OutlineInputBorder(

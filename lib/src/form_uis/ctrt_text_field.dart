@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class CtrtTextField extends StatefulWidget {
-  final String? label, prefixText;
+  final String? label, prefixText, hintText;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
@@ -26,6 +26,7 @@ class CtrtTextField extends StatefulWidget {
     super.key,
     this.label,
     this.prefixText,
+    this.hintText,
     this.onChanged,
     this.validator = CtrtValidator.requiredValidation,
     this.keyboardType,
@@ -72,9 +73,11 @@ class _CtrtTextFieldState extends State<CtrtTextField> {
         prefixText: widget.prefixText,
         suffixIcon: widget.suffixIcon,
         labelText: widget.label,
+        hintText: widget.hintText,
         filled: widget.fill,
         fillColor: widget.fillColor ?? CtrtColors.white,
         labelStyle: CtrtThemes.fieldLabelStyle(fontSize: widget.labelSize),
+        hintStyle: CtrtThemes.fieldLabelStyle(fontSize: widget.textSize),
         border: CtrtThemes.fieldBorderRadius(radius: widget.borderRadius, whithBoder: widget.withBorderRadius),
         enabledBorder: CtrtThemes.fieldBorderRadius(radius: widget.borderRadius, whithBoder: widget.withBorderRadius),
         focusedBorder: CtrtThemes.fieldSelectedBorder(radius: widget.borderRadius, whithBoder: widget.withBorderRadius),

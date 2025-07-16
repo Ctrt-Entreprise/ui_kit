@@ -5,6 +5,12 @@ class CtrtColors {
   // MARQUES
   // --------------------
 
+  // FOR SAMASURE
+  static const Color primarySamasure = Color(0xFF1E40AF);
+  static const Color primarySamasureTransparent = Color(0xFFF4F5FC);
+  static const Color borderSamasure = Color(0xFFDDDDDD);
+  static const Color lightGreySamasure = Color(0xFFF4F5FC);
+
   // FOR CARANGE
   static const Color primaryCarange = Color(0xFFF42E21);
 

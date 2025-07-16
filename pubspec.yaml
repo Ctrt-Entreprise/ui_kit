@@ -4,7 +4,7 @@ version: 0.0.1
 homepage:
 
 environment:
-  sdk: ^3.7.2
+  sdk: ^3.8.1
   flutter: ">=1.17.0"
 
 dependencies:
@@ -20,9 +20,9 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^29.1.41
   flutter:
     sdk: flutter
-  # core:
-  intl: ^0.19.0
+  intl: ^0.20.2
   percent_indicator: ^4.2.4
+  # core:
   core:
     git:
       url: https://github.com/Ctrt-Entreprise/core.git

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:ui_kit/src/themes/index.dart';
 
 class CtrtPasswordField extends StatefulWidget {
-  final String? label;
+  final String? label, hintText;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
@@ -23,6 +23,7 @@ class CtrtPasswordField extends StatefulWidget {
   const CtrtPasswordField({
     super.key,
     this.label,
+    this.hintText,
     this.onChanged,
     this.validator,
     this.keyboardType,
@@ -78,9 +79,11 @@ class _CtrtPasswordFieldState extends State<CtrtPasswordField> {
             },
           ),
           labelText: widget.label,
+          hintText: widget.hintText,
           filled: widget.fill,
           fillColor: widget.fillColor ?? CtrtColors.white,
           labelStyle: CtrtThemes.fieldLabelStyle(fontSize: widget.labelSize),
+          hintStyle: CtrtThemes.fieldLabelStyle(fontSize: widget.textSize),
           border: CtrtThemes.fieldBorderRadius(radius: widget.borderRadius, whithBoder: widget.withBorderRadius),
           enabledBorder: CtrtThemes.fieldBorderRadius(radius: widget.borderRadius, whithBoder: widget.withBorderRadius),
           focusedBorder: CtrtThemes.fieldSelectedBorder(radius: widget.borderRadius, whithBoder: widget.withBorderRadius),
