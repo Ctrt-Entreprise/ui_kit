@@ -7,13 +7,19 @@ class CtrtSelectedTab extends StatefulWidget {
   final List<String> items;
   String selectedItem;
   final Function(String) onSelect;
-
+  final double? textSize;
+  final Color? activeColor, inactiveColor, activeTextColor, inactiveTextColor;
   CtrtSelectedTab({
     super.key,
     this.label,
     required this.items,
     required this.selectedItem,
     required this.onSelect,
+    this.textSize,
+    this.activeColor,
+    this.inactiveColor,
+    this.activeTextColor,
+    this.inactiveTextColor,
   });
 
   @override
@@ -56,17 +62,17 @@ class _CtrtSelectedTabState extends State<CtrtSelectedTab> {
                             padding: EdgeInsets.symmetric(vertical: 10.h),
                             decoration: BoxDecoration(
                               color: widget.selectedItem == item
-                              ? CtrtColors.black
-                              : CtrtColors.lightGrey,
+                              ? widget.activeColor ?? CtrtColors.black
+                              : widget.inactiveColor ?? CtrtColors.lightGrey,
                               borderRadius: BorderRadius.circular(5.w),
                             ),
                             child: Center(
                               child: CtrtText.medium(
                                 text: item,
-                                textSize: 14.sp,
+                                textSize: widget.textSize ?? 14.sp,
                                 textColor: widget.selectedItem == item
-                                ? CtrtColors.white
-                                : CtrtColors.black,
+                                ? widget.activeTextColor ?? CtrtColors.white
+                                : widget.inactiveTextColor ?? CtrtColors.black,
                               ),
                             ),
                           ),

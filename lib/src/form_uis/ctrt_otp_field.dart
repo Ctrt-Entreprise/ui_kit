@@ -11,6 +11,8 @@ class CtrtOtpField extends StatelessWidget {
   final String? Function(String?)? validator;
   final double? height, radius;
   final bool whithBoder;
+  final double? cursorHeight;
+  final double? fontSize;
   const CtrtOtpField({
     super.key,
     this.width,
@@ -21,12 +23,13 @@ class CtrtOtpField extends StatelessWidget {
     this.height,
     this.radius,
     this.whithBoder = true,
+    this.cursorHeight,
+    this.fontSize,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
       child: PinCodeTextField(
         appContext: context,
         length: length,
@@ -36,9 +39,9 @@ class CtrtOtpField extends StatelessWidget {
         pinTheme: CtrtThemes.pinTheme(width: width, height: height, radius: radius, whithBoder: whithBoder),
         onCompleted: onCompleted,
         onChanged: onChange,
-        textStyle: CtrtThemes.otpFieldStyle(fontSize: 25),
+        textStyle: CtrtThemes.otpFieldStyle(fontSize: fontSize??25),
         keyboardType: TextInputType.number,
-        cursorHeight: 25,
+        cursorHeight: cursorHeight??25,
       ),
     );
   }
