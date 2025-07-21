@@ -8,6 +8,8 @@ class CtrtUnderlineTab extends StatefulWidget {
   final Function(int) handleSelect;
   final bool isExpanded;
   final double? textSize;   
+  final Color? activeColor;
+  final Color? inactiveColor;
   const CtrtUnderlineTab({
     super.key,
     required this.tabs,
@@ -16,6 +18,8 @@ class CtrtUnderlineTab extends StatefulWidget {
     required this.handleSelect,
     this.isExpanded = false,
     this.textSize,
+    this.activeColor,
+    this.inactiveColor,
   });
 
   @override
@@ -71,6 +75,8 @@ class _CtrtUnderlineTabState extends State<CtrtUnderlineTab> {
                   tab: widget.tabs[i],
                   actif: widget.tabs[i] == select,
                   textSize: widget.textSize,
+                  activeColor: widget.activeColor,
+                  inactiveColor: widget.inactiveColor,
                 ),
               ),
         ],
@@ -83,7 +89,9 @@ class ItemTabBar extends StatelessWidget {
   final String tab;
   final bool actif;
   final double? textSize;
-  const ItemTabBar({super.key, required this.tab, required this.actif, this.textSize});
+  final Color? activeColor;
+  final Color? inactiveColor;
+  const ItemTabBar({super.key, required this.tab, required this.actif, this.textSize, this.activeColor, this.inactiveColor});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +101,7 @@ class ItemTabBar extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: actif ? CtrtColors.primaryCarange : Colors.transparent,
+            color: actif ? activeColor ?? CtrtColors.primaryCarange : inactiveColor ?? Colors.transparent,
           ),
         ),
       ),
