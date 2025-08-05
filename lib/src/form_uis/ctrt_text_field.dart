@@ -20,7 +20,7 @@ class CtrtTextField extends StatefulWidget {
   final bool withBorderRadius;
   final double? borderRadius, textSize, labelSize;
   final EdgeInsets? contentPadding;
-
+  final double? height;
   final bool responsive;
   const CtrtTextField({
     super.key,
@@ -46,7 +46,8 @@ class CtrtTextField extends StatefulWidget {
     this.labelSize = 11,
     this.contentPadding,
     this.responsive = false,
-  });
+    this.height,
+    });
 
   @override
   State<CtrtTextField> createState() => _CtrtTextFieldState();
@@ -68,6 +69,10 @@ class _CtrtTextFieldState extends State<CtrtTextField> {
       maxLines: widget.maxLines,
       style: CtrtThemes.fieldStyle(fontSize: widget.textSize),
       decoration: InputDecoration(
+        constraints: widget.height != null ? BoxConstraints(
+          maxHeight: widget.height?? 45,
+          minHeight: widget.height?? 45,
+        ): null,
         contentPadding: widget.contentPadding,
         prefixIcon: widget.prefixIcon,
         prefixText: widget.prefixText,

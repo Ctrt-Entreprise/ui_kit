@@ -9,6 +9,7 @@ class CtrtSingleImagePicker extends StatefulWidget {
   final Function(CtrtFilePickerModel) getImage;
   final String? imageUrl;
   final String? baseUrlImage;
+  final double? borderRadius;
   const CtrtSingleImagePicker({
     super.key,
     required this.width,
@@ -16,6 +17,7 @@ class CtrtSingleImagePicker extends StatefulWidget {
     required this.getImage,
     this.baseUrlImage,
     this.imageUrl,
+    this.borderRadius,
   });
 
   @override
@@ -39,16 +41,20 @@ class _CtrtSingleImagePickerState extends State<CtrtSingleImagePicker> {
         height: widget.height,
         decoration: BoxDecoration(
           color: CtrtColors.white,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: widget.borderRadius == null ? null : BorderRadius.circular(widget.borderRadius!),
           border: Border.all(color: CtrtColors.lightGrey, width: 2),
+          shape: widget.borderRadius == null ? BoxShape.circle : BoxShape.rectangle,
           image: images != null
           ? DecorationImage(
             image: MemoryImage(images!),
             fit: BoxFit.fill,
           ) :null,
         ),
-        child: images == null && widget.imageUrl != null && widget.baseUrlImage != null ?
-        ImageNetwork(
+        child: images == null && widget.imageUrl != null ?
+        Padding(
+          padding: EdgeInsets.all(5.0),
+          child: ImageNetwork(
+          key: Key(widget.imageUrl ?? ''),
           onTap: () async {
             var newImage = (await CtrtFilePicker.pickImageFromGalery());
             if (newImage != null) {
@@ -56,7 +62,7 @@ class _CtrtSingleImagePickerState extends State<CtrtSingleImagePicker> {
               setState(() => images = newImage.uint8List);
             }
           },
-          image: '${widget.baseUrlImage??""}/${widget.imageUrl??""}',
+          image: widget.baseUrlImage != null ? '${widget.baseUrlImage??""}/${widget.imageUrl??""}' : widget.imageUrl ?? '',
           height: widget.height,
           width: widget.width,
           onLoading: CircularProgressIndicator(),
@@ -69,8 +75,8 @@ class _CtrtSingleImagePickerState extends State<CtrtSingleImagePicker> {
                 Text('${widget.baseUrlImage??""}/${widget.imageUrl??""}')
             ],
           ),
-        ) 
-        : Center(child: Icon(Icons.photo)),
+        ),
+        ) : Center(child: Icon(Icons.photo)),
       ),
     );
   }

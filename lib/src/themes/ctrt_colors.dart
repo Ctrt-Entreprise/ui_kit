@@ -159,6 +159,8 @@ class CtrtColors {
     "ARRIVÉ AU GARAGE": transparentGreen,
     "PRÊT À LIVRER": transparentGreen,
     "LIVRAISON EN COURS": transparentBleu,
+    "Multi-pays": primarySamasureTransparent,
+    "Mono-pays": primarySamasureTransparent,
   };
 
   static var badgeTxtColor = {
@@ -189,6 +191,8 @@ class CtrtColors {
     "ARRIVÉ AU GARAGE": darkGreen,
     "PRÊT À LIVRER": darkGreen,
     "LIVRAISON EN COURS": darkBleu,
+    "Multi-pays": primarySamasure,
+    "Mono-pays": primarySamasure,
   };
 
 }

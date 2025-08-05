@@ -19,7 +19,7 @@ class CtrtPasswordField extends StatefulWidget {
   final double? textSize, labelSize, borderRadius;
   final bool withBorderRadius;
   final EdgeInsets? contentPadding;
-
+  final double? height;
   const CtrtPasswordField({
     super.key,
     this.label,
@@ -41,6 +41,7 @@ class CtrtPasswordField extends StatefulWidget {
     this.borderRadius,
     this.withBorderRadius = true,
     this.contentPadding,
+    this.height,
   });
 
   @override
@@ -65,6 +66,10 @@ class _CtrtPasswordFieldState extends State<CtrtPasswordField> {
         obscureText: _obscureText,
         style: CtrtThemes.fieldStyle(fontSize: widget.textSize),
         decoration: InputDecoration(
+          constraints: widget.height != null ? BoxConstraints(
+            maxHeight: widget.height?? 45,
+            minHeight: widget.height?? 45,
+          ): null,
           contentPadding: widget.contentPadding,
           prefixIcon: widget.prefixIcon,
           suffixIcon: widget.suffixIcon ?? IconButton(

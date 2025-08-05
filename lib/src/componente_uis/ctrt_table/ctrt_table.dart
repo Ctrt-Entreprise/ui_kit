@@ -51,7 +51,7 @@ class CtrtTable extends StatelessWidget {
                   },
                   cells: item.cells.map((cell) => DataCell(getCustomWidget(cell))).toList(),
                 );}).toList(),
-              empty: EmptyView(
+              empty: EmptySmalView(
                 title: "Aucun résultat",
                 message: "Aucun élément à afficher pour le moment",
                 icon: Icons.inbox_outlined,

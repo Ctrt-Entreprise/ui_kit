@@ -29,9 +29,9 @@ class CtrtButton extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Container(
-        height: height,
+        height: height??50,
         width: width,
-        padding: EdgeInsets.symmetric(horizontal:pH?? 20, vertical: pV?? 12),
+        padding: EdgeInsets.symmetric(horizontal: pH?? 0, vertical: pV?? 0),
         decoration: BoxDecoration(
           color: color ?? CtrtColors.primary,
           borderRadius: BorderRadius.circular(radius ?? 8),

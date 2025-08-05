@@ -8,9 +8,15 @@ class CtrtDropdownmenu extends StatefulWidget {
   final String? hinttext;
   final void Function(CtrtSelectItem?)? onChanged;
   final bool withBorderRadius;
-  final double? radius;
+  final double? borderRadius;
   final double? fontSize;
   final double? labelSize;
+  final double? height;
+  final EdgeInsets? contentPadding;
+  final bool fill;
+  final Color? fillColor;
+  final CtrtSelectItem? defaultValue; // Ajout du defaultValue
+
   const CtrtDropdownmenu({
     super.key,
     required this.suggestions,
@@ -18,9 +24,14 @@ class CtrtDropdownmenu extends StatefulWidget {
     this.hinttext,
     this.onChanged,
     required this.withBorderRadius,
-    this.radius,
+    this.borderRadius,
     this.fontSize,
-    this.labelSize
+    this.labelSize,
+    this.height,
+    this.contentPadding,
+    this.fill = false,
+    this.fillColor,
+    this.defaultValue, // Ajout dans le constructeur
   });
 
   @override
@@ -31,44 +42,67 @@ class _CtrtDropdownmenuState extends State<CtrtDropdownmenu> {
   CtrtSelectItem? selectedStatus;
 
   @override
+  void initState() {
+    super.initState();
+    // Initialiser selectedStatus avec defaultValue si fourni
+    selectedStatus = widget.defaultValue;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context).copyWith(
-        canvasColor: CtrtColors.white
-      ),
+      data: Theme.of(context).copyWith(canvasColor: CtrtColors.white),
       child: DropdownButtonFormField<CtrtSelectItem>(
-      value: selectedStatus,
-      hint: Text(widget.hinttext??"", style: CtrtThemes.fieldLabelStyle(fontSize: widget.labelSize??16),),
-      decoration: InputDecoration(
-        border: CtrtThemes.fieldBorderRadius(
-          radius: widget.radius,
-          whithBoder: widget.withBorderRadius,
+        // controller: widget.controller,
+        value: selectedStatus,
+        hint: Text(
+          widget.hinttext ?? "",
+          style: CtrtThemes.fieldLabelStyle(fontSize: widget.labelSize ?? 16),
         ),
-        enabledBorder: CtrtThemes.fieldBorderRadius(
-          radius: widget.radius,
-          whithBoder: widget.withBorderRadius,
+        decoration: InputDecoration(
+          fillColor: widget.fillColor,
+          filled: widget.fill,
+          constraints: widget.height != null
+          ? BoxConstraints(
+            maxHeight: widget.height ?? 45,
+            minHeight: widget.height ?? 45,
+          ): null,
+          contentPadding: widget.contentPadding,
+          border: CtrtThemes.fieldBorderRadius(
+            radius: widget.borderRadius,
+            whithBoder: widget.withBorderRadius,
+          ),
+          enabledBorder: CtrtThemes.fieldBorderRadius(
+            radius: widget.borderRadius,
+            whithBoder: widget.withBorderRadius,
+          ),
+          focusedBorder: CtrtThemes.fieldSelectedBorder(
+            radius: widget.borderRadius,
+            whithBoder: widget.withBorderRadius,
+          ),
+          hintText: widget.hinttext,
+          hintStyle: CtrtThemes.fieldLabelStyle(fontSize: widget.labelSize ?? 16),
+          labelText: widget.label,
+          labelStyle: CtrtThemes.fieldLabelStyle(
+            fontSize: widget.labelSize ?? 16,
+          ),
         ),
-        focusedBorder: CtrtThemes.fieldSelectedBorder(
-          radius: widget.radius,
-          whithBoder: widget.withBorderRadius,
-        ),
-        labelText: widget.label,
-        labelStyle: CtrtThemes.fieldLabelStyle(fontSize: widget.labelSize??16),
-      ),
-      items:  widget.suggestions.map((item) {
-        return DropdownMenuItem<CtrtSelectItem>(
-        value: item,
-         child: Text(
-        item.label ?? "",
-        style: CtrtThemes.fieldStyle(fontSize: widget.fontSize ?? 16),
-      ));
-      }).toList(),
-      onChanged: (value) {
-        setState(() {
-          selectedStatus = value;
-        });
-        widget.onChanged?.call(value);
-      },
+        items:
+            widget.suggestions.map((item) {
+              return DropdownMenuItem<CtrtSelectItem>(
+                value: item,
+                child: Text(
+                  item.label ?? "",
+                  style: CtrtThemes.fieldStyle(fontSize: widget.fontSize ?? 16),
+                ),
+              );
+            }).toList(),
+        onChanged: (value) {
+          setState(() {
+            selectedStatus = value;
+          });
+          widget.onChanged?.call(value);
+        },
       ),
     );
   }

@@ -8,13 +8,19 @@ class CtrtDatePicker extends StatefulWidget {
   final String label;
   final double? width;
   final double? height;
-  final double? radius;
+  final double? borderRadius;
   final double? paddingH;
   final double? paddingV;
   final bool responsive;
-  final double? textSize;
+  final double? textSize, labelSize;
   final double? iconSize;
-  
+  final bool withBorderRadius;
+  final bool fill;
+  final Color? fillColor;
+  final Widget? icon;
+  final FormFieldValidator<String>? validator;
+  final EdgeInsets? contentPadding;
+
   const CtrtDatePicker({
     super.key,
     this.initialDate,
@@ -22,12 +28,19 @@ class CtrtDatePicker extends StatefulWidget {
     this.label = 'Date',
     this.width,
     this.height,
-    this.radius,
+    this.borderRadius,
     this.paddingH,
     this.paddingV,
     this.responsive = false,
     this.textSize,
+    this.labelSize,
     this.iconSize,
+    this.withBorderRadius = true,
+    this.fill = true,
+    this.fillColor,
+    this.icon,
+    this.validator,
+    this.contentPadding,
   });
 
   @override
@@ -45,28 +58,30 @@ class _CtrtDatePickerState extends State<CtrtDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _selectDate(context),
-      child: Container(
-        width: widget.width,
-        height: widget.height,
-        padding: EdgeInsets.symmetric(vertical: widget.paddingV ?? 12, horizontal: widget.paddingH ?? 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(widget.radius ?? 8),
-          border: Border.all(color: Colors.grey[300]!),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              selectedDate != null ? DateFormat('dd MMM.yyyy', 'fr_FR').format(selectedDate!) : '',
-              style: CtrtThemes.fieldStyle(fontSize: widget.textSize),
-            ),
-            Icon(Icons.calendar_today, size: widget.iconSize ?? 24),
-          ],
-        ),
+    return TextFormField(
+      readOnly: true,
+      controller: TextEditingController(
+        text: selectedDate != null ? DateFormat('dd MMM.yyyy', 'fr_FR').format(selectedDate!): '',
       ),
+      onTap: () => _selectDate(context),
+      style: CtrtThemes.fieldStyle(fontSize: widget.textSize ?? 16),
+      decoration: InputDecoration(
+        constraints: widget.height != null ? BoxConstraints(
+          maxHeight: widget.height?? 45,
+          minHeight: widget.height?? 45,
+        ): null,
+        contentPadding: widget.contentPadding,
+        prefixIcon: widget.icon,
+        suffixIcon: Icon(Icons.calendar_month, color: CtrtColors.textPrimary, size: 20), 
+        labelText: widget.label,
+        filled: widget.fill,
+        fillColor: widget.fillColor ?? CtrtColors.white,
+        labelStyle: CtrtThemes.fieldLabelStyle(fontSize: widget.labelSize?? 16),
+        border: CtrtThemes.fieldBorderRadius(radius: widget.borderRadius ?? 12, whithBoder: widget.withBorderRadius),
+        enabledBorder: CtrtThemes.fieldBorderRadius(radius: widget.borderRadius ?? 12, whithBoder: widget.withBorderRadius),
+        focusedBorder: CtrtThemes.fieldSelectedBorder(radius: widget.borderRadius ?? 12, whithBoder: widget.withBorderRadius),
+      ),
+      validator: widget.validator,
     );
   }
 
@@ -78,7 +93,7 @@ class _CtrtDatePickerState extends State<CtrtDatePicker> {
       lastDate: DateTime(2026),
       locale: const Locale('fr', 'FR'),
     );
-    
+
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
