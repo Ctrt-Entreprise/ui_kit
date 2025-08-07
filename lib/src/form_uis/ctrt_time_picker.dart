@@ -126,23 +126,26 @@ class _CtrtTimePickerState extends State<CtrtTimePicker> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Sélectionner une plage horaire'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: widget.timeRanges.map((timeRange) {
-              return ListTile(
-                title: Text(timeRange),
-                onTap: () {
-                  setState(() {
-                    selectedTimeRange = timeRange;
-                    if (widget.controller != null) {
-                      widget.controller?.text = timeRange;
-                    }
-                  });
-                  widget.onTimeRangeSelected(timeRange);
-                  Navigator.pop(context);
-                },
-              );
-            }).toList(),
+          content: SizedBox(
+            height: 300, // Définir la hauteur ici (ajuste selon ton besoin)
+            width: double.maxFinite,
+            child: ListView(
+              children: widget.timeRanges.map((timeRange) {
+                return ListTile(
+                  title: Text(timeRange),
+                  onTap: () {
+                    setState(() {
+                      selectedTimeRange = timeRange;
+                      if (widget.controller != null) {
+                        widget.controller?.text = timeRange;
+                      }
+                    });
+                    widget.onTimeRangeSelected(timeRange);
+                    Navigator.pop(context);
+                  },
+                );
+              }).toList(),
+            ),
           ),
         );
       },

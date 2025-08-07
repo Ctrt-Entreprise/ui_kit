@@ -8,7 +8,7 @@ class PaymentDistributionChart extends StatelessWidget {
   final List<PaymentCategory> categories;
   final double centerSpaceRadius;
   final double sectionRadius;
-  final bool showLegend;
+  final bool showLegend, isEmpty;
   final double? height;
   final double? width;
   final double? spacing;
@@ -22,6 +22,7 @@ class PaymentDistributionChart extends StatelessWidget {
     this.height,
     this.width,
     this.spacing,
+    this.isEmpty = false,
       });
 
   @override
@@ -32,23 +33,25 @@ class PaymentDistributionChart extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          
           Expanded(
             child: Row(
               spacing: spacing ?? 20,
               children: [
-                Expanded(
-                  flex: showLegend ? 2 : 1,
-                  child: PieChart(
-                    PieChartData(
-                      sectionsSpace: 0,
-                      centerSpaceRadius: centerSpaceRadius,
-                      sections: _generateSections(),
-                      pieTouchData: PieTouchData(
-                        touchCallback: (FlTouchEvent event, pieTouchResponse) {},
+                if (!isEmpty)
+                  Expanded(
+                    flex: showLegend ? 2 : 1,
+                    child: PieChart(
+                      PieChartData(
+                        sectionsSpace: 0,
+                        centerSpaceRadius: centerSpaceRadius,
+                        sections: _generateSections(),
+                        pieTouchData: PieTouchData(
+                          touchCallback: (FlTouchEvent event, pieTouchResponse) {},
+                        ),
                       ),
                     ),
                   ),
-                ),
                 if (showLegend) Expanded(flex: 1, child: _buildLegend()),
               ],
             ),
@@ -73,8 +76,7 @@ class PaymentDistributionChart extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:
-          categories.map((category) {
+      children: categories.map((category) {
             return SizedBox(
               height: 70.h,
               child: Row(
